@@ -71,6 +71,8 @@ namespace miditests
             bool boo = true;
             List<int> notes = new List<int> { 62, 70, 81, 56, 64, 67 };
             //List<int> times = new List<int> { 150, 300, 250, 200, 400, 500 };
+
+            //should change that
             List<int> times = new List<int> { 50, 60,40,60,30,80 };
             times.Add(60);
             notes.Add(60);

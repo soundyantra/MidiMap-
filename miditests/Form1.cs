@@ -20,14 +20,10 @@ namespace miditests
     {
         private CoreAudioDevice defaultPlaybackDevice;
         static private int div = 100;
-
         static private Thread myThread = new Thread(new ThreadStart(midirandom));
 
         public Form1()
         {
-
-            //defaultPlaybackDevice = new CoreAudioController().DefaultPlaybackDevice;
-            //defaultPlaybackDevice = new CoreAudioController().GetDefaultDevice(DeviceType.Playback,Role.Multimedia);
             InitializeComponent();
             Class1.tb = trackBar1;
             trackBar1.Maximum = 0;
@@ -176,14 +172,12 @@ namespace miditests
         private void button2_Click(object sender, EventArgs e)
         {
             
-                 MidiIn midiIn = new MidiIn(0);
+            MidiIn midiIn = new MidiIn(0);
             
-                //MidiIn midiIn = new MidiIn(4);
-                midiIn.MessageReceived += midiIn_MessageReceived;
-                midiIn.Start();
+            //MidiIn midiIn = new MidiIn(4);
+            midiIn.MessageReceived += midiIn_MessageReceived;
+            midiIn.Start();
                 
-
-            
             richTextBox1.Text += Convert.ToString(MidiIn.NumberOfDevices);
             
             for (int i = 0; i < MidiIn.NumberOfDevices; i++)
@@ -255,7 +249,6 @@ namespace miditests
         private void button3_Click(object sender, EventArgs e)
         {
 
-            //myThread = new Thread(new ThreadStart(midirandom));
             if (myThread.IsAlive)
             {
                 myThread.Resume();
@@ -264,9 +257,7 @@ namespace miditests
             {
                 myThread.Start();
             }
-            
 
-            //midirandom();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

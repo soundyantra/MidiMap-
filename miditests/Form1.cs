@@ -288,6 +288,12 @@ namespace miditests
                     case 36:
                         insim.Keyboard.KeyPress(VirtualKeyCode.MEDIA_PLAY_PAUSE);
                         break;
+                    case 37:
+                        insim.Keyboard.KeyPress(VirtualKeyCode.MEDIA_NEXT_TRACK);
+                        break;
+                    case 41:
+                        insim.Keyboard.KeyPress(VirtualKeyCode.MEDIA_PREV_TRACK);
+                        break;
                     default:
                         //insim.Keyboard.KeyPress(VirtualKeyCode.LWIN);
                         //insim.Keyboard.ModifiedKeyStroke(new[] {VirtualKeyCode.CONTROL, VirtualKeyCode.MENU}, VirtualKeyCode.DELETE);

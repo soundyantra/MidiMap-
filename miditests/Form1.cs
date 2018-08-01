@@ -23,13 +23,14 @@ namespace miditests
     {
         //private CoreAudioDevice defaultPlaybackDevice;
         static private int div = 100;
-        static private Thread myThread = new Thread(new ThreadStart(midirandom));
+        //static private Thread myThread = new Thread(new ThreadStart(midirandom));
         static MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
         static MMDevice device;
         private static SessionCollection ok;
         static private List<AudioSessionControl> ASCList = new List<AudioSessionControl>();
         static private List<AudioSessionControl> ASCList2 = new List<AudioSessionControl>();
-
+        static private bool mapping = false;
+        static private MidiEvent midievent;
 
         public Form1()
         {
@@ -69,93 +70,6 @@ namespace miditests
             
         }
 
-        public static void midirandom()
-        {
-            bool boo = true;
-            List<int> notes = new List<int> { 62, 70, 81, 56, 64, 67 };
-            //List<int> times = new List<int> { 150, 300, 250, 200, 400, 500 };
-
-            //should change that
-            List<int> times = new List<int> { 50, 60,40,60,30,80 };
-            times.Add(60);
-            notes.Add(60);
-
-            MidiOut midiOut = new MidiOut(4);
-            //MidiIn midin = new MidiIn(0);
-            Console.WriteLine(MidiOut.DeviceInfo(0));
-            Console.WriteLine(MidiOut.NumberOfDevices);
-            Console.WriteLine(MidiIn.NumberOfDevices);
-            Console.ReadLine();
-            for (int i = 0; i < MidiOut.NumberOfDevices; i++)
-            {
-                Console.WriteLine(MidiOut.DeviceInfo(i).ProductName);
-                //Console.WriteLine(MidiIn.DeviceInfo(i).ProductName);
-            }
-            Random r = new Random();
-            //MessageBox.Show("kkee");
-            int ii = 0;
-            while (boo)
-            {
-                MidiEventCollection col = new MidiEventCollection(0, 120);
-                string[] files = Directory.GetFiles(@"D:\Production\Midis");
-                var strictMode = false;
-
-                var mf = new MidiFile(files[r.Next(0,files.Length)], strictMode);
-                /*
-                if (div > 60)
-                {
-                    mf = new MidiFile("untitled.mid", strictMode);
-                }
-                else
-                {
-                    mf = new MidiFile("arp.mid", strictMode);
-                }
-                */
-
-                for (int i = 0; i < 16; i++)
-                {
-                    if (ii < mf.Events[1].Count())
-                    {
-                        midiOut.Send(mf.Events[1][ii].GetAsShortMessage());
-                        System.Threading.Thread.Sleep(div);
-                    }
-                    else
-                    {
-                        ii = 0;
-                    }
-                    ii++;
-                }
-                /*
-                foreach (var midiEvent in mf.Events[1])
-                {
-                    midiOut.Send(midiEvent.GetAsShortMessage());
-                    System.Threading.Thread.Sleep(div);
-                }
-                */
-
-                /*
-                for (int k = 0; k < 4; k++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        for (int i = 0; i < notes.Count; i++)
-                        {
-                            midiOut.Send(MidiMessage.StartNote(notes[i], r.Next(50, 127), 1).RawData);
-                            midiOut.Send(MidiMessage.StartNote(notes[i] - 10, r.Next(50, 127), 2).RawData);
-                            //midiOut.Send(MidiMessage.ChangeControl(2, kek, 1).RawData);
-                            System.Threading.Thread.Sleep(div);
-                            midiOut.Send(MidiMessage.StopNote(notes[i], 0, 1).RawData);
-                            midiOut.Send(MidiMessage.StopNote(notes[i] - 10, 0, 2).RawData);
-                        }
-                        notes.Add(r.Next(50, 100));
-                        times.Add(r.Next(10, 150));
-                    }
-                    notes = notes.OrderBy(a => Guid.NewGuid()).ToList();
-                    times = times.OrderBy(a => Guid.NewGuid()).ToList();
-                }
-                */
-            }
-        }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
@@ -199,7 +113,9 @@ namespace miditests
 
         private async void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
+            midievent = e.MidiEvent;
             //TrackBar t = trackBar2;
+            
             if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
             {
                 MidiEvent me = e.MidiEvent;
@@ -307,8 +223,7 @@ namespace miditests
                         insim.Keyboard.Sleep(1000);
                         break;
                 }
-                
-                
+
             }
         }
 
@@ -324,19 +239,8 @@ namespace miditests
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
 
-            if (myThread.IsAlive)
-            {
-                myThread.Resume();
-            }
-            else
-            {
-                myThread.Start();
-            }
 
-        }
 
         public List<AudioSessionControl> GetThat(string name)
         {
@@ -370,10 +274,6 @@ namespace miditests
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            myThread.Suspend();
-        }
 
         private void trackBar2_ValueChanged(object sender, EventArgs e)
         {
@@ -401,6 +301,27 @@ namespace miditests
             //ids.Keyboard.KeyPress((VirtualKeyCode)e.KeyCode);
             ids.Keyboard.KeyPress(VirtualKeyCode.LWIN);
             ids.Keyboard.KeyUp((VirtualKeyCode) e.KeyCode);
+
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (mapping)
+            {
+                if (midievent.CommandCode == MidiCommandCode.ControlChange)
+                {
+                    
+                }
+            }
+        }
+
+        private void MapButton_Click(object sender, EventArgs e)
+        {
+            mapping = !mapping;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

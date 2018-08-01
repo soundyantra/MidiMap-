@@ -32,9 +32,9 @@
             this.button2 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
-            this.button3 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
+            this.MapButton = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.SuspendLayout();
@@ -75,16 +75,6 @@
             this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
             this.trackBar2.ValueChanged += new System.EventHandler(this.trackBar2_ValueChanged);
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(12, 12);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(104, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "start";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(12, 151);
@@ -93,24 +83,33 @@
             this.textBox1.TabIndex = 6;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // button4
+            // MapButton
             // 
-            this.button4.Location = new System.Drawing.Point(122, 12);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "stop";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.MapButton.Location = new System.Drawing.Point(213, 51);
+            this.MapButton.Name = "MapButton";
+            this.MapButton.Size = new System.Drawing.Size(75, 23);
+            this.MapButton.TabIndex = 7;
+            this.MapButton.Text = "Map";
+            this.MapButton.UseVisualStyleBackColor = true;
+            this.MapButton.Click += new System.EventHandler(this.MapButton_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(213, 81);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 8;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(277, 217);
-            this.Controls.Add(this.button4);
+            this.ClientSize = new System.Drawing.Size(341, 231);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.MapButton);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.trackBar2);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button2);
@@ -133,9 +132,9 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TrackBar trackBar2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button MapButton;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

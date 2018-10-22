@@ -10,5 +10,6 @@ namespace miditests
     public static class Class1
     {
         public static TrackBar tb;
+        public static TextBox TextBox;
     }
 }

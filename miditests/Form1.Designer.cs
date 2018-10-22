@@ -35,6 +35,10 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.MapButton = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.MappingTextbox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.LastMidiEventTextbox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.SuspendLayout();
@@ -102,11 +106,49 @@
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
+            // MappingTextbox
+            // 
+            this.MappingTextbox.Location = new System.Drawing.Point(213, 125);
+            this.MappingTextbox.Name = "MappingTextbox";
+            this.MappingTextbox.Size = new System.Drawing.Size(100, 20);
+            this.MappingTextbox.TabIndex = 9;
+            this.MappingTextbox.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(210, 109);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Mapping";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(213, 152);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(74, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "LastMidiEvent";
+            // 
+            // LastMidiEventTextbox
+            // 
+            this.LastMidiEventTextbox.Location = new System.Drawing.Point(213, 168);
+            this.LastMidiEventTextbox.Name = "LastMidiEventTextbox";
+            this.LastMidiEventTextbox.Size = new System.Drawing.Size(100, 20);
+            this.LastMidiEventTextbox.TabIndex = 12;
+            this.LastMidiEventTextbox.TextChanged += new System.EventHandler(this.textBox3_TextChanged_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(341, 231);
+            this.Controls.Add(this.LastMidiEventTextbox);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.MappingTextbox);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.MapButton);
             this.Controls.Add(this.textBox1);
@@ -135,6 +177,10 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button MapButton;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox MappingTextbox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox LastMidiEventTextbox;
     }
 }
 

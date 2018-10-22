@@ -21,16 +21,16 @@ namespace miditests
 
     public partial class Form1 : Form
     {
-        //private CoreAudioDevice defaultPlaybackDevice;
         static private int div = 100;
-        //static private Thread myThread = new Thread(new ThreadStart(midirandom));
         static MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
         static MMDevice device;
         private static SessionCollection ok;
         static private List<AudioSessionControl> ASCList = new List<AudioSessionControl>();
         static private List<AudioSessionControl> ASCList2 = new List<AudioSessionControl>();
         static private bool mapping = false;
-        static private MidiEvent midievent;
+        static private MidiEvent LastMidiEvent;
+        static private string LastMidiEventText="";
+        //static private MidiEvent LastMidiEvent;
 
         public Form1()
         {
@@ -43,11 +43,10 @@ namespace miditests
             device = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
         }
 
-        bool boo = false;
+        bool boo = false; //!TODO: What is this?
         
         private void button1_Click(object sender, EventArgs e)
         {
-
             for (int i = 0; i < 100; i++)
             {
                 Thread myThread = new Thread(new ThreadStart(mb));
@@ -55,7 +54,6 @@ namespace miditests
                 myThread.Start();
             }
             //myThread.Start();
-
         }
 
         public static void mb()
@@ -65,9 +63,7 @@ namespace miditests
             {
                 MessageBox.Show(Convert.ToString(tb.Value));
                 Thread.Sleep(500);
-
             }     
-            
         }
 
 
@@ -80,7 +76,6 @@ namespace miditests
         {
             //var tupleList = new List<(List<AudioSessionControl>, string)>();
             //Audio.tupleList[i].Item2
-
 
             MidiIn midiIn = new MidiIn(0);
             //MidiIn midiIn = new MidiIn(4);
@@ -101,19 +96,20 @@ namespace miditests
             Audio.ASCList2 = GetThat("foobar2000");
             Audio.tupleList.Add((GetThat("firefox"), "firefox"));
             Audio.tupleList.Add((GetThat("foobar2000"), "foobar2000"));
-            //Audio.ASCListMAIN = GetThat("ShellExperienceHost");
+            //TODO: Change to have ALL programs, not hardcoded
+
         }
 
         public void ChangeVol(ControlChangeEvent cce)
         {
             MMDevice nd = enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console);
             nd.AudioEndpointVolume.MasterVolumeLevelScalar = (float)cce.ControllerValue / 127;
-            
         }
 
         private async void midiIn_MessageReceived(object sender, MidiInMessageEventArgs e)
         {
-            midievent = e.MidiEvent;
+            LastMidiEvent = e.MidiEvent;
+            LastMidiEventText = e.MidiEvent.ToString();
             //TrackBar t = trackBar2;
             
             if (e.MidiEvent.CommandCode == MidiCommandCode.ControlChange)
@@ -150,7 +146,7 @@ namespace miditests
                     //ok[8].SimpleAudioVolume.Mute = true;
                     //ok[8].SimpleAudioVolume.Volume = (float)cce.ControllerValue / 127;
                     
-                    /*
+                    /* //TODO: WHat is going on here?
                     this.trackBar2.BeginInvoke((MethodInvoker)(() => this.trackBar2.Value = cce.ControllerValue));
                     
                     this.textBox1.BeginInvoke((MethodInvoker)(() => this.textBox1.Text = Convert.ToString(cce.ControllerValue)));
@@ -225,9 +221,10 @@ namespace miditests
                 }
 
             }
-        }
 
-        
+            //LastMidiEventTextbox.Refresh();
+
+        }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
@@ -240,12 +237,9 @@ namespace miditests
         }
 
 
-
-
-        public List<AudioSessionControl> GetThat(string name)
+        public List<AudioSessionControl> GetThat(string name) //Get proces by name
         {
             device = Audio.device;
-            
             var ok = device.AudioSessionManager.Sessions;
             
             ok = Audio.ok;
@@ -282,7 +276,7 @@ namespace miditests
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            Class1.TextBox = LastMidiEventTextbox;
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
@@ -292,6 +286,7 @@ namespace miditests
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+            /*
             InputSimulator ids = new InputSimulator();
             //for (int i = 0; i < 100; i++)
             //{
@@ -301,26 +296,44 @@ namespace miditests
             //ids.Keyboard.KeyPress((VirtualKeyCode)e.KeyCode);
             ids.Keyboard.KeyPress(VirtualKeyCode.LWIN);
             ids.Keyboard.KeyUp((VirtualKeyCode) e.KeyCode);
-
+            */
         }
 
-        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e) //Maping
         {
-            if (mapping)
+            if (mapping) //TODO: hmhmhmh
             {
-                if (midievent.CommandCode == MidiCommandCode.ControlChange)
+                if (LastMidiEvent.CommandCode == MidiCommandCode.ControlChange)
                 {
                     
+                }
+
+                if (LastMidiEvent.CommandCode == MidiCommandCode.NoteOff)
+                {
+                    char k = e.KeyChar; //Now we here
+                    string kek;
                 }
             }
         }
 
-        private void MapButton_Click(object sender, EventArgs e)
+        private void MapButton_Click(object sender, EventArgs e) //Maping
         {
             mapping = !mapping;
+            MappingTextbox.Text = Convert.ToString(mapping);
+            LastMidiEventTextbox.Text = LastMidiEventText;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged_1(object sender, EventArgs e)
         {
 
         }

@@ -311,6 +311,23 @@ namespace miditests
                 if (LastMidiEvent.CommandCode == MidiCommandCode.NoteOff)
                 {
                     char k = e.KeyChar; //Now we here
+                    
+                    InputSimulator ids = new InputSimulator();
+
+
+                    VirtualKeyCode vkKeyCode=VirtualKeyCode.ACCEPT;
+                    foreach (VirtualKeyCode key in (VirtualKeyCode[])Enum.GetValues(typeof(VirtualKeyCode)))
+                    {
+                        if (ids.InputDeviceState.IsKeyDown(key))
+                        {
+                            vkKeyCode = key;
+                        }
+                        
+                    }
+
+                    
+                    ids.Keyboard.KeyPress(vkKeyCode);
+                    
                     string kek;
                 }
             }

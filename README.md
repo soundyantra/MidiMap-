@@ -1,4 +1,3 @@
-# miditests
-Is this repository?
-# Yup
-ok
+# MidiMap
+Simple application that allows to map various functional to buttons and controllers of LPD8 midi controller.
+
